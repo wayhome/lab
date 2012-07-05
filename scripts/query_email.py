@@ -26,9 +26,13 @@ def main(filter=None):
         resultset = engine.execute(sql % (status_mask, subscribe_mask))
     else:
         resultset = engine.execute(sql % status_mask)
-    for row in resultset.fetchall():
-        if not validate_email(row.email):
+    with file("/tmp/invalid_email.txt", "w") as f:
+        for row in resultset.fetchall():
+            if validate_email(row.email):
+                continue
             print row.id, row.email.encode("utf8")
+            f.write("{0},{1}\n".format(row.id, row.email.encode("utf8")))
+            
 
 if __name__ == '__main__':
     main()

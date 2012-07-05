@@ -39,6 +39,15 @@ normal_domains = ['qq.com',
                  'vip.sohu.net',
                  'pplive.com',
                  'aliyun-inc.com',
+                 'umeng.com',
+                 'dnspod.com',
+                 '115.com',
+                 'zhihu.com',
+                 'v2ex.com',
+                 'me.com',
+                 'qiyi.com',
+                 'tudou.com',
+                 'alipay.com',
         ]
 
 # custom for zhihu
@@ -79,6 +88,8 @@ def query_mx(domain):
     if domain not in mx_records:
         mx_hosts = DNS.mxlookup(domain)
         mx_records[domain] = mx_hosts
+        if not mx_hosts:
+            print "invalid domain: ", domain
     return mx_records[domain]
 
 
