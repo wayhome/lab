@@ -1,4 +1,6 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 import settings
 import re
 from sqlalchemy import create_engine
@@ -16,16 +18,19 @@ engine = create_engine(settings.DB_URI,
             )
 
 
-def main():
+def main(filter=None):
+    status_mask = 0b110
+    subscribe_mask = 0b1
     sql = """
         SELECT id, fullname, email
         FROM member
-        WHERE  !(status & %s) AND (email_settings & %s)
-        ORDER BY id LIMIT 100000
+        WHERE  !(status & %s)
     """
-    status_mask = 0b110
-    subscribe_mask = 0b1
-    resultset = engine.execute(sql % (status_mask, subscribe_mask))
+    if filter:
+        sql += " AND (email_settings & %s)"
+        resultset = engine.execute(sql % (status_mask, subscribe_mask))
+    else:
+        resultset = engine.execute(sql % status_mask)
     for row in resultset.fetchall():
         if not email_re.match(row.email):
             print row.email
