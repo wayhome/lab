@@ -4,6 +4,7 @@
 import settings
 import re
 from sqlalchemy import create_engine
+import DNS
 
 email_re = re.compile(
     r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
@@ -16,6 +17,10 @@ engine = create_engine(settings.DB_URI,
                     strategy='threadlocal',
                     encoding='utf-8',
             )
+
+
+DNS.DiscoverNameServers()
+mx_records = {}
 
 
 def main(filter=None):
@@ -33,7 +38,14 @@ def main(filter=None):
         resultset = engine.execute(sql % status_mask)
     for row in resultset.fetchall():
         if not email_re.match(row.email):
-            print row.email
+            print row.id, row.email.encode("utf8")
+        else:
+            domain = row.email.split("@")[1]
+            if domain not in mx_records:
+                mx_hosts = DNS.mxlookup(domain)
+                mx_records[domain] = mx_hosts
+            if not mx_records[domain]:
+                print row.id, row.email.encode("utf8")
 
 
 if __name__ == '__main__':
