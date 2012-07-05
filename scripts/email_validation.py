@@ -50,6 +50,10 @@ normal_domains = ['qq.com',
                  'alipay.com',
         ]
 
+black_domains = ['email.com',
+                 'fff.com'
+                 ]
+
 # custom for zhihu
 custom_domains = settings.custom_domains
 mx_records = {}
@@ -98,6 +102,8 @@ def validate_email(email):
         return False
     else:
         domain = email.split("@")[1]
+        if domain in black_domains:
+            return False
         if domain in normal_domains:
             return True
         if domain in custom_domains:
