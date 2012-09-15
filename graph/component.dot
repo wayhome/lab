@@ -1,0 +1,45 @@
+digraph component {
+
+  PT[label="主站", shape=box, style="filled", color=aquamarine]
+  OT[label="其他", shape=box, color=grey,style="filled", peripheries=2];
+  TP[label="话题页 | {view|controller}", shape=record, color=chartreuse, peripheries=2];
+  T[label="话题 | {view| controller| model}", shape=record, style="rounded", color="#eecc80"];
+  Q[label="问题 | {view| controller| model}", shape=record, style="rounded",color="#eecc80"];
+  A[label="答案 | {view| controller| model}", shape=record, style="rounded",color="#eecc80"];
+  M[label="人员 | {view| controller| model}", shape=record, style="rounded",color="#eecc80"];
+  AUTH[label="认证", shape=box, style=filled, color="#2b3cf3", peripheries=2];
+  PERM[label="权限", shape=box, style=filled, color="#2b3cf3", peripheries=2];
+
+  PT -> TP [style=dotted]
+  PT -> OT [style=dotted]
+  TP -> T [color=cadetblue1];
+  TP -> Q [color=cadetblue1];
+
+  subgraph cluster_0 {
+
+    subgraph cluster_1 {
+        Q -> T;
+        Q -> A;
+    }
+
+    Q -> M;
+    T -> M;
+    A -> M;
+  }
+
+ subgraph cluster_2{
+  M -> AUTH [style=dashed, color=pink];
+  M -> PERM [style=dashed, color=pink];
+
+  Q -> AUTH [style=dashed, color=lightcoral];
+  Q -> PERM [style=dashed, color=lightcoral];
+
+  T -> AUTH [style=dashed, color=dimgrey];
+  T -> PERM [style=dashed, color=dimgrey];
+
+  A -> AUTH [style=dashed, color=darkgreen];
+  A -> PERM [style=dashed, color=darkgreen];
+
+  }
+
+}

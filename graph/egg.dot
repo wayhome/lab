@@ -1,0 +1,7 @@
+digraph egg {
+  node [shape=egg]
+  "zhihu.frontend" -> "zhihu.activity";
+  "zhihu.frontend" -> "zhihu.question";
+  "zhihu.frontend" -> "zhihu.topic";
+  "zhihu.frontend" -> "zhihu.member";
+}
