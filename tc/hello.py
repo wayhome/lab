@@ -24,6 +24,15 @@ class AsyncHandler(tornado.web.RequestHandler, AsyncMixin):
     def reply(self, result):
         self.finish("Hello, %s" % result)
 
+class MyHandler(tornado.web.RequestHandler):
+    @asynchronous
+    @gen.engine
+    def get(self):
+        http_client = AsyncHTTPClient()
+        response = yield gen.Task(http_client.fetch, "http://zhihu.com")
+        stuff = do_something(response)
+        self.render("template.html", **stuff)
+
 
 application = tornado.web.Application([
     (r"/sync", SyncHandler),
