@@ -1,5 +1,7 @@
 *.log
 *.pot
 *.pyc
+*.beam
 *.swp
+.DS_Store
 local_settings.py
