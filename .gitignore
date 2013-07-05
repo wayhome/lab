@@ -4,4 +4,6 @@
 *.beam
 *.swp
 .DS_Store
+.env
+*.dump
 local_settings.py
