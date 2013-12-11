@@ -3,6 +3,7 @@
 *.pyc
 *.beam
 *.swp
+*.out
 .DS_Store
 .env
 *.dump
