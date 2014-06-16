@@ -8,3 +8,7 @@
 .env
 *.dump
 local_settings.py
+bin/
+lib/
+build/
+pyvenv.cfg
