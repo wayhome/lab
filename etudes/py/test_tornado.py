@@ -23,7 +23,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.finish()
 
 application = tornado.web.Application([
-    (r"/(.*)", MainHandler),
+    (r"/main/(.*)", MainHandler),
 ])
 
 if __name__ == "__main__":

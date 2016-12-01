@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+service Calc {
+  rpc Add( AddRequest) returns (AddResponse)
+}
+
+message AddRequest {
+  required int32 a = 1;
+  required int32 b = 2;
+}
