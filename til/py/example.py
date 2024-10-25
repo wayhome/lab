@@ -5,6 +5,12 @@
 #     "rich",
 # ]
 # ///
+
+## 使用 uv 添加脚本 inline 依赖
+## uv add --script example.py  'rich' 'requests'
+## 使用 uv 运行
+## uv run example.py
+
 import requests
 from rich.pretty import pprint
 
